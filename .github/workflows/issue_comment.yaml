@@ -27,11 +27,7 @@ jobs:
     steps:
       - name: Create comment with API
         run: |
-          gh api -X POST \
-            repos/{owner}/{repo}/issues/{ISSUE_NUMBER}/comments \
-            -f body='
-            Comment from API call without using an action
-            '
+          gh api repos/{owner}/{repo}/issues/123/comments -f body='Comment from direct API call without an action'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ORGANIZATION: ${{ github.event.organisation.login }}
