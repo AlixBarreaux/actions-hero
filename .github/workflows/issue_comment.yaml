@@ -27,9 +27,13 @@ jobs:
     steps:
       - name: Create comment with API
         run: |
-          gh api repos/{owner}/{repo}/issues/123/comments -f body='Comment from direct API call without an action'
+          gh api \
+            --method POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            /repos/OWNER/REPO/issues/ISSUE_NUMBER/comments \
+             -f "body=Comment created via API direct call!"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ORGANIZATION: ${{ github.event.organisation.login }}
-          REPOSITORY: ${{ github.event.repository.name }}
+          OWNER: ${{ AlixBarreaux }}
+          REPO: ${{ github.event.repository.name }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
